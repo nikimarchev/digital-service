@@ -1,0 +1,18 @@
+.homePage {
+  background-color: black;
+}
+.headerBlack {
+  font-size: 60px;
+}
+.headerBlack:hover {
+  font-size: 60px;
+  cursor: pointer;
+}
+.headerWhite {
+  color: white;
+  font-size: 50px;
+}
+.paragraphWhite {
+  color: white;
+  font-size: 25px;
+}
