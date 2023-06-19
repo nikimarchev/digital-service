@@ -12,67 +12,67 @@ function createData(name: string, price: string) {
 }
 
 const repairPrices = [
-  createData("iPhone 13 Pro Max", "160лв"),
-  createData("iPhone 13 Pro", "130лв"),
-  createData("iPhone 13", "110лв"),
-  createData("iPhone 13 mini", "110лв"),
-  createData("iPhone 12 Pro Max", "110лв"),
-  createData("iPhone 12 Pro", "110лв"),
-  createData("iPhone 12", "110лв"),
-  createData("iPhone 12 mini", "90лв"),
-  createData("iPhone 11 Pro Max", "100лв"),
-  createData("iPhone 11 Pro", "90лв"),
-  createData("iPhone 11", "80лв"),
-  createData("iPhone XR", "80лв"),
-  createData("iPhone XS Max", "80лв"),
-  createData("iPhone XS", "80лв"),
-  createData("iPhone X", "70лв"),
-  createData("iPhone SE 2020", "60лв"),
-  createData("iPhone 8 Plus", "60лв"),
-  createData("iPhone 8", "60лв"),
-  createData("iPhone 7 Plus", "50лв"),
-  createData("iPhone 7", "40лв"),
-  createData("iPhone 6S Plus", "50лв"),
-  createData("iPhone 6S", "40лв"),
-  createData("iPhone 6 Plus", "40лв"),
-  createData("iPhone 6", "40лв"),
-  createData("iPhone SE 1 gen", "40лв"),
-  createData("iPhone 5S", "30лв"),
-  createData("iPhone 5", "30лв"),
-  createData("iPhone 4S", "30лв"),
-  createData("iPhone 4", "30лв"),
+  createData("iPhone 13 Pro Max", "160"),
+  createData("iPhone 13 Pro", "130"),
+  createData("iPhone 13", "110"),
+  createData("iPhone 13 mini", "110"),
+  createData("iPhone 12 Pro Max", "110"),
+  createData("iPhone 12 Pro", "110"),
+  createData("iPhone 12", "110"),
+  createData("iPhone 12 mini", "90"),
+  createData("iPhone 11 Pro Max", "100"),
+  createData("iPhone 11 Pro", "90"),
+  createData("iPhone 11", "80"),
+  createData("iPhone XR", "80"),
+  createData("iPhone XS Max", "80"),
+  createData("iPhone XS", "80"),
+  createData("iPhone X", "70"),
+  createData("iPhone SE 2020", "60"),
+  createData("iPhone 8 Plus", "60"),
+  createData("iPhone 8", "60"),
+  createData("iPhone 7 Plus", "50"),
+  createData("iPhone 7", "40"),
+  createData("iPhone 6S Plus", "50"),
+  createData("iPhone 6S", "40"),
+  createData("iPhone 6 Plus", "40"),
+  createData("iPhone 6", "40"),
+  createData("iPhone SE 1 gen", "40"),
+  createData("iPhone 5S", "30"),
+  createData("iPhone 5", "30"),
+  createData("iPhone 4S", "30"),
+  createData("iPhone 4", "30"),
 ];
 
 const partPrices = [
-  createData("iPhone 13 Pro Max", "160лв"),
-  createData("iPhone 13 Pro", "130лв"),
-  createData("iPhone 13", "110лв"),
-  createData("iPhone 13 mini", "110лв"),
-  createData("iPhone 12 Pro Max", "110лв"),
-  createData("iPhone 12 Pro", "110лв"),
-  createData("iPhone 12", "110лв"),
-  createData("iPhone 12 mini", "90лв"),
-  createData("iPhone 11 Pro Max", "100лв"),
-  createData("iPhone 11 Pro", "90лв"),
-  createData("iPhone 11", "80лв"),
-  createData("iPhone XR", "80лв"),
-  createData("iPhone XS Max", "80лв"),
-  createData("iPhone XS", "80лв"),
-  createData("iPhone X", "70лв"),
-  createData("iPhone SE 2020", "60лв"),
-  createData("iPhone 8 Plus", "60лв"),
-  createData("iPhone 8", "60лв"),
-  createData("iPhone 7 Plus", "50лв"),
-  createData("iPhone 7", "40лв"),
-  createData("iPhone 6S Plus", "50лв"),
-  createData("iPhone 6S", "40лв"),
-  createData("iPhone 6 Plus", "40лв"),
-  createData("iPhone 6", "40лв"),
-  createData("iPhone SE 1 gen", "40лв"),
-  createData("iPhone 5S", "30лв"),
-  createData("iPhone 5", "30лв"),
-  createData("iPhone 4S", "30лв"),
-  createData("iPhone 4", "30лв"),
+  createData("iPhone 13 Pro Max", "160"),
+  createData("iPhone 13 Pro", "130"),
+  createData("iPhone 13", "110"),
+  createData("iPhone 13 mini", "110"),
+  createData("iPhone 12 Pro Max", "110"),
+  createData("iPhone 12 Pro", "110"),
+  createData("iPhone 12", "110"),
+  createData("iPhone 12 mini", "90"),
+  createData("iPhone 11 Pro Max", "100"),
+  createData("iPhone 11 Pro", "90"),
+  createData("iPhone 11", "80"),
+  createData("iPhone XR", "80"),
+  createData("iPhone XS Max", "80"),
+  createData("iPhone XS", "80"),
+  createData("iPhone X", "70"),
+  createData("iPhone SE 2020", "60"),
+  createData("iPhone 8 Plus", "60"),
+  createData("iPhone 8", "60"),
+  createData("iPhone 7 Plus", "50"),
+  createData("iPhone 7", "40"),
+  createData("iPhone 6S Plus", "50"),
+  createData("iPhone 6S", "40"),
+  createData("iPhone 6 Plus", "40"),
+  createData("iPhone 6", "40"),
+  createData("iPhone SE 1 gen", "40"),
+  createData("iPhone 5S", "30"),
+  createData("iPhone 5", "30"),
+  createData("iPhone 4S", "30"),
+  createData("iPhone 4", "30"),
 ];
 
 const MobileBattery = ({ type }) => {
@@ -93,7 +93,9 @@ const MobileBattery = ({ type }) => {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="center">{row.price}</TableCell>
+                    <TableCell align="center">
+                      {row.price} {row.price === "N / A" ? null : "лв"}
+                    </TableCell>
                   </TableRow>
                 ))
               : partPrices.map((row) => (
@@ -101,7 +103,9 @@ const MobileBattery = ({ type }) => {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="center">{row.price}</TableCell>
+                    <TableCell align="center">
+                      {row.price} {row.price === "N / A" ? null : "лв"}
+                    </TableCell>
                   </TableRow>
                 ))}
           </TableBody>
