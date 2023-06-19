@@ -1,6 +1,12 @@
 .homePage {
   background-color: black;
 }
+.detailsPage {
+  background-image: url("../../public/bolts.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
 .headerBlack {
   font-size: 60px;
 }
@@ -15,4 +21,35 @@
 .paragraphWhite {
   color: white;
   font-size: 25px;
+}
+.paragraphBlack {
+  color: black;
+  font-size: 25px;
+}
+.infoHeader {
+  padding-top: 30px;
+  margin-top: 0;
+  font-size: 40px;
+}
+.accordionDiv {
+  width: 60%;
+  margin: auto;
+}
+.accordion {
+  margin-top: 50px;
+}
+.tableHeader {
+  font-size: 50px;
+}
+.menuButton:hover {
+  cursor: pointer;
+}
+.menuItem {
+  font-size: 15px;
+  /* font-weight: bold; */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.headerTitle:hover {
+  cursor: pointer;
 }
