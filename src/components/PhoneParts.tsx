@@ -55,26 +55,6 @@ const PhoneParts = () => {
             <MobileDisplay type="parts" />
           </AccordionDetails>
         </Accordion>
-
-        <Accordion
-          onChange={(e, expanded) => {
-            if (expanded) {
-              setExpanded("panel3");
-            }
-          }}
-          expanded={expanded === "panel3"}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3a-content"
-            id="panel3a-header"
-          >
-            <Typography variant="h6">ПРЕДНИ И ЗАДНИ СТЪКЛА</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <MobileGlasses type="parts" />
-          </AccordionDetails>
-        </Accordion>
         <ContactDialog buttonText="КОНТАКТ ЗА ПОРЪЧКИ" />
       </div>
     </div>

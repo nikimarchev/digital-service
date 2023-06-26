@@ -73,9 +73,7 @@ const HomePage = () => {
         </ParallaxLayer>
         <ParallaxLayer offset={1.7} speed={0.5}>
           <p className="headerBlack">ОРИГИНАЛНИ И СЪВМЕСТИМИ ЧАСТИ ЗА IPHONE</p>
-          <p className="paragraphBlack">
-            Дисплеи, батерии, предни и задни стъкла и други части.
-          </p>
+          <p className="paragraphBlack">Дисплеи, батерии и други части.</p>
           <Button
             variant="contained"
             color="inherit"
