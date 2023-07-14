@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -49,9 +49,11 @@ const ContactDialog = ({ buttonText }) => {
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-              0877885226
+              <Link href="tel:0877885226" sx={{ textDecoration: "none" }}>
+                0877885226
+              </Link>
             </Typography>
-            <Typography variant="h7">
+            <Typography variant="h6">
               Адрес: гр. Асеновград, ул. Хан Аспарух 13
             </Typography>
           </DialogContentText>
