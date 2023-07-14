@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MobileBattery from "./priceTables/MobileBattery.tsx";
 import MobileDisplay from "./priceTables/MobileDisplay.tsx";
-import MobileGlasses from "./priceTables/MobileGlasses.tsx";
 import ContactDialog from "./ContactDialog.tsx";
 import NavBar from "./NavBar.tsx";
 
@@ -24,6 +23,8 @@ const PhoneParts = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel1");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel1"}
@@ -40,6 +41,8 @@ const PhoneParts = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel2");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel2"}

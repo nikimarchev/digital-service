@@ -31,12 +31,16 @@ const ComputerRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel1");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel1"}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
-            <Typography variant="h6">РЕМОНТ НА ЛАПОТПИ</Typography>
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
+              РЕМОНТ НА ЛАПТОПИ
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography style={styles.detailsText}>- Дисплей</Typography>
@@ -58,6 +62,8 @@ const ComputerRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel2");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel2"}
@@ -67,7 +73,7 @@ const ComputerRepair = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
               СМЯНА НА КОМПОНЕНТИ НА КОМПЮТЪР
             </Typography>
           </AccordionSummary>
@@ -88,6 +94,8 @@ const ComputerRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel3");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel3"}
@@ -97,7 +105,9 @@ const ComputerRepair = () => {
             aria-controls="panel3a-content"
             id="panel3a-header"
           >
-            <Typography variant="h6">РЕМОНТ НА КОМПОНЕНТИ</Typography>
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
+              РЕМОНТ НА КОМПОНЕНТИ
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography style={styles.detailsText}>

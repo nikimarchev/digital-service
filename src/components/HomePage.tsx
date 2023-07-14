@@ -67,7 +67,7 @@ const HomePage = () => {
           }}
         />
         <ParallaxLayer offset={0.3} speed={0.1}>
-          <p className="headerBlack">DIGITAL SERVICE</p>
+          <p className="headerHome">DIGITAL SERVICE</p>
           <h1>Атанас Байчаров - 0877885226</h1>
           <h2>гр. Асеновград, ул. Хан Аспарух 13</h2>
         </ParallaxLayer>

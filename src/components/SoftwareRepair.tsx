@@ -1,5 +1,5 @@
 import "./styles.css";
-import React from "react";
+import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -26,12 +26,24 @@ const styles = {
 };
 
 const SoftwareRepair = () => {
+  const [expanded, setExpanded] = useState<string>("panel1");
+
   return (
     <div className="detailsPage">
       <NavBar />
       <p className="infoHeader">СОФТУЕР И ОТКЛЮЧВАНЕ</p>
       <div className="accordionDiv">
-        <Accordion className="accordion" expanded={true}>
+        <Accordion
+          className="accordion"
+          onChange={(e, expanded) => {
+            if (expanded) {
+              setExpanded("panel1");
+            } else {
+              setExpanded("");
+            }
+          }}
+          expanded={expanded === "panel1"}
+        >
           <AccordionSummary>
             <Typography variant="h6">СОФТУЕРНИ НАМЕСИ</Typography>
           </AccordionSummary>
@@ -46,15 +58,31 @@ const SoftwareRepair = () => {
             <ContactDialog buttonText="КОНТАКТ ЗА ЦЕНИ И ЧАС" />
           </AccordionDetails>
         </Accordion>
-        <Accordion className="accordion" expanded={true}>
+        <Accordion
+          className="accordion"
+          onChange={(e, expanded) => {
+            if (expanded) {
+              setExpanded("panel2");
+            } else {
+              setExpanded("");
+            }
+          }}
+          expanded={expanded === "panel2"}
+        >
+          <AccordionSummary>
+            <Typography variant="h6">ДРУГИ УСЛУГИ</Typography>
+          </AccordionSummary>
           <AccordionDetails>
-            <Typography style={styles.detailsTextSpecial}>
+            <Typography
+              style={styles.detailsTextSpecial}
+              sx={{ textAlign: "left" }}
+            >
               - Инсталиране на Windows
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Преинсталиране на Windows, Mac OS
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Възстановяване на данни
             </Typography>
             <ContactDialog buttonText="КОНТАКТ ЗА ЦЕНИ И ЧАС" />

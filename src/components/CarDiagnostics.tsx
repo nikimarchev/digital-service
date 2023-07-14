@@ -21,7 +21,6 @@ const styles = {
     fontSize: "20px",
     marginBottom: "10px",
     marginLeft: "20px",
-    marginTop: "30px",
   },
 };
 
@@ -36,22 +35,25 @@ const CarDiagnostics = () => {
             <Typography variant="h6">СОФТУЕРНИ НАМЕСИ</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Диагностика на автомибили
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Софтуерно изключване на грешки
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Софтуерно изключване на DPF/EGR/FAP филтри
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Софтуерно изключване на AdBlue системи
             </Typography>
-            <Typography style={styles.detailsText}>
+            <Typography style={styles.detailsText} sx={{ textAlign: "left" }}>
               - Включване на екстри
             </Typography>
-            <Typography style={styles.detailsTextSpecial}>
+            <Typography
+              style={styles.detailsTextSpecial}
+              sx={{ textAlign: "left" }}
+            >
               Цени спрямо марка и модел.
             </Typography>
             <ContactDialog buttonText="КОНТАКТ ЗА ЦЕНИ И ЧАС" />

@@ -7,6 +7,9 @@
   width: 100vw;
   height: 100vh;
 }
+.headerHome {
+  font-size: 60px;
+}
 .headerBlack {
   font-size: 60px;
 }
@@ -52,4 +55,50 @@
 }
 .headerTitle:hover {
   cursor: pointer;
+}
+.accordionTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.accordionBody {
+  height: 300px;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .headerHome {
+    font-size: 45px;
+  }
+  .headerBlack {
+    font-size: 30px;
+  }
+  .headerBlack:hover {
+    font-size: 30px;
+    cursor: pointer;
+  }
+  .headerWhite {
+    color: white;
+    font-size: 30px;
+  }
+  .paragraphWhite {
+    color: white;
+    font-size: 20px;
+  }
+  .paragraphBlack {
+    color: black;
+    font-size: 20px;
+  }
+  .accordionDiv {
+    width: 95%;
+    margin: auto;
+  }
+  .infoHeader {
+    padding-top: 20px;
+    margin-top: 0;
+    font-size: 30px;
+  }
+  .accordionBody {
+    height: 200px;
+    overflow: auto;
+  }
 }

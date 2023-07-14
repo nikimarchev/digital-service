@@ -8,8 +8,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Fade, Menu, MenuItem } from "@mui/material";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 const NavBar = () => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ const NavBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color="inherit">
+        <AppBar position="absolute" color="inherit">
           <Toolbar>
             <IconButton
               className="menuButton"
@@ -44,7 +46,9 @@ const NavBar = () => {
             <Typography
               variant="h5"
               fontWeight="bold"
-              sx={{ flexGrow: 1 }}
+              sx={{
+                ...(!isSmallScreen && { flexGrow: 1 }),
+              }}
               onClick={() => handleNavigate("/")}
               className="headerTitle"
             >

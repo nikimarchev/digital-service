@@ -24,12 +24,16 @@ const PhoneRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel1");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel1"}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
-            <Typography variant="h6">СМЯНА НА БАТЕРИИ</Typography>
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
+              СМЯНА НА БАТЕРИИ
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <MobileBattery type="repair" />
@@ -40,6 +44,8 @@ const PhoneRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel2");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel2"}
@@ -49,7 +55,9 @@ const PhoneRepair = () => {
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
-            <Typography variant="h6">СМЯНА НА ДИСПЛЕИ</Typography>
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
+              СМЯНА НА ДИСПЛЕИ
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <MobileDisplay type="repair" />
@@ -60,6 +68,8 @@ const PhoneRepair = () => {
           onChange={(e, expanded) => {
             if (expanded) {
               setExpanded("panel3");
+            } else {
+              setExpanded("");
             }
           }}
           expanded={expanded === "panel3"}
@@ -69,7 +79,9 @@ const PhoneRepair = () => {
             aria-controls="panel3a-content"
             id="panel3a-header"
           >
-            <Typography variant="h6">СМЯНА НА ПРЕДНИ И ЗАДНИ СТЪКЛА</Typography>
+            <Typography variant="h6" sx={{ textAlign: "left" }}>
+              СМЯНА НА ПРЕДНИ И ЗАДНИ СТЪКЛА
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <MobileGlasses type="repair" />

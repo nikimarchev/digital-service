@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../styles.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -85,7 +86,7 @@ const partPrices = [
 
 const MobileGlasses = ({ type }) => {
   return (
-    <div style={{ height: "300px", overflow: "auto" }}>
+    <div className="accordionBody">
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
