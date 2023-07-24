@@ -53,9 +53,13 @@ const ContactDialog = ({ buttonText }) => {
                 0877885226
               </Link>
             </Typography>
-            <Typography variant="h6">
-              Адрес: гр. Асеновград, ул. Хан Аспарух 13
-            </Typography>
+            <Link
+              href="https://www.google.com/maps?q=гр.+Асеновград,+ул.+Хан+Аспарух+13"
+              target="_blank"
+              rel="noopener"
+            >
+              гр. Асеновград, ул. Хан Аспарух 13
+            </Link>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
