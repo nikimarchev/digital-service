@@ -31,14 +31,13 @@ const NavBar = () => {
     <>
       <Box>
         <AppBar position="absolute" color="inherit">
-          <Toolbar sx={{ position: "relative" }}>
+          <Toolbar>
             <IconButton
               className="menuButton"
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
               onClick={handleClick}
             >
               <MenuIcon />

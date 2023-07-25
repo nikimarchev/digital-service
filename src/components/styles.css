@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 .menuButton {
-  position: absolute;
+  z-index: 10;
 }
 .menuItem {
   font-size: 15px;
