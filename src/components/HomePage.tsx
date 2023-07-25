@@ -77,6 +77,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             color="inherit"
+            sx={{ backgroundColor: "white", color: "black" }}
             onClick={() => navigate("phone-parts")}
           >
             ВИЖ ПОВЕЧЕ
@@ -91,6 +92,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             color="inherit"
+            sx={{ backgroundColor: "white", color: "black" }}
             onClick={() => navigate("phone-repair")}
           >
             ВИЖ ПОВЕЧЕ
@@ -105,6 +107,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             color="inherit"
+            sx={{ backgroundColor: "white", color: "black" }}
             onClick={() => navigate("computer-repair")}
           >
             ВИЖ ПОВЕЧЕ
@@ -118,6 +121,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             color="inherit"
+            sx={{ backgroundColor: "white", color: "black" }}
             onClick={() => navigate("software-repair")}
           >
             ВИЖ ПОВЕЧЕ
@@ -133,6 +137,7 @@ const HomePage = () => {
           <Button
             variant="contained"
             color="inherit"
+            sx={{ backgroundColor: "white", color: "black" }}
             onClick={() => navigate("car-diagnostics-repair")}
           >
             ВИЖ ПОВЕЧЕ

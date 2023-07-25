@@ -29,9 +29,9 @@ const NavBar = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="absolute" color="inherit">
-          <Toolbar>
+          <Toolbar sx={{ position: "relative" }}>
             <IconButton
               className="menuButton"
               size="large"

@@ -47,11 +47,18 @@
 .menuButton:hover {
   cursor: pointer;
 }
+.menuButton {
+  position: absolute;
+}
 .menuItem {
   font-size: 15px;
-  /* font-weight: bold; */
   padding-left: 10px;
   padding-right: 10px;
+}
+.headerTitle {
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 .headerTitle:hover {
   cursor: pointer;
