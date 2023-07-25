@@ -1,20 +1,26 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Fade, Menu, MenuItem } from "@mui/material";
+import { Button, Fade, Menu, MenuItem } from "@mui/material";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
+import { AdminInfo } from "../App";
+import { AdminInfoDispatch } from "../App";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 const NavBar = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const isAdminLogged = useContext(AdminInfo);
+  const setIsAdminLogged = useContext(AdminInfoDispatch);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,6 +31,16 @@ const NavBar = () => {
   const handleNavigate = (root) => {
     setAnchorEl(null);
     navigate(root);
+  };
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        setIsAdminLogged(false);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -85,6 +101,18 @@ const NavBar = () => {
         <MenuItem onClick={() => handleNavigate("/car-diagnostics-repair")}>
           <p className="menuItem">ДИАГНОСТИКА НА АВТОМОБИЛИ</p>
         </MenuItem>
+        {!isAdminLogged && (
+          <MenuItem onClick={() => handleNavigate("/login-page")}>
+            <Button className="menuItemAdmin">АДМИН</Button>
+          </MenuItem>
+        )}
+        {isAdminLogged && (
+          <MenuItem onClick={() => handleNavigate("/login-page")}>
+            <Button className="menuItemAdmin" onClick={() => logout()}>
+              ИЗХОД
+            </Button>
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

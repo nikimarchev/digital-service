@@ -55,6 +55,12 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.menuItemAdmin {
+  color: gray;
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .headerTitle {
   position: absolute;
   left: 0;
@@ -70,6 +76,23 @@
 .accordionBody {
   height: 300px;
   overflow: auto;
+}
+.loginRoot {
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  justify-content: "center";
+  height: "100vh";
+}
+.loginForm {
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  justify-content: "center";
+  gap: 1rem;
+  padding: 2rem;
+  border: "1px solid #ccc";
+  border-radius: 0.5rem;
 }
 
 @media (max-width: 768px) {
