@@ -107,10 +107,8 @@ const NavBar = () => {
           </MenuItem>
         )}
         {isAdminLogged && (
-          <MenuItem onClick={() => handleNavigate("/login-page")}>
-            <Button className="menuItemAdmin" onClick={() => logout()}>
-              ИЗХОД
-            </Button>
+          <MenuItem onClick={() => logout()}>
+            <Button className="menuItemAdmin">ИЗХОД</Button>
           </MenuItem>
         )}
       </Menu>
