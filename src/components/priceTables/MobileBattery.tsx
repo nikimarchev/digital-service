@@ -15,25 +15,29 @@ const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
   const isAdminLogged = useContext(AdminInfo);
   const [repairPrices, setRepairPrices] = useState<any>([]);
   const [partPrices, setPartPrices] = useState<any>([]);
-  const [changedRow, setChangedRow] = useState<any>(null);
-  const [indexChanged, setIndexChanged] = useState<any>(null);
+  const [changedRow, setChangedRow] = useState<string | null>(null);
+  const [indexChanged, setIndexChanged] = useState<string | null>(null);
 
   useEffect(() => {
     const batteryRepairRef = ref(db, "battery-repair");
     onValue(batteryRepairRef, (snapshot) => {
-      let data = Object.entries(snapshot.val()).map(([name, { price }]) => ({
-        name,
-        price: price.toString(),
-      }));
+      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+        ([name, { price }]) => ({
+          name,
+          price: price.toString(),
+        })
+      );
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setRepairPrices(data);
     });
     const batteryPartRef = ref(db, "battery-part");
     onValue(batteryPartRef, (snapshot) => {
-      let data = Object.entries(snapshot.val()).map(([name, { price }]) => ({
-        name,
-        price: price.toString(),
-      }));
+      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+        ([name, { price }]) => ({
+          name,
+          price: price.toString(),
+        })
+      );
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setPartPrices(data);
     });
@@ -58,6 +62,7 @@ const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
   };
 
   const changeRequest = () => {
+    if (!indexChanged) return;
     switch (changedRow) {
       case "price":
         const newPrices = [...repairPrices];

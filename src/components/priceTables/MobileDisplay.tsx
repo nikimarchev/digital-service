@@ -15,28 +15,30 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
   const isAdminLogged = useContext(AdminInfo);
   const [repairPrices, setRepairPrices] = useState<any>([]);
   const [partPrices, setPartPrices] = useState<any>([]);
-  const [changedRow, setChangedRow] = useState<any>(null);
-  const [indexChanged, setIndexChanged] = useState<any>(null);
+  const [changedRow, setChangedRow] = useState<string | null>(null);
+  const [indexChanged, setIndexChanged] = useState<string | null>(null);
 
   useEffect(() => {
     const displayRepairRef = ref(db, "display-repair");
     onValue(displayRepairRef, (snapshot) => {
-      let data = Object.entries(snapshot.val()).map(
-        ([name, { price, secondPrice }]) => ({
-          name,
-          price: price.toString(),
-          secondPrice: secondPrice.toString(),
-        })
-      );
+      let data = Object.entries<{ price: number; secondPrice: number }>(
+        snapshot.val()
+      ).map(([name, { price, secondPrice }]) => ({
+        name,
+        price: price.toString(),
+        secondPrice: secondPrice.toString(),
+      }));
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setRepairPrices(data);
     });
     const displayPartRef = ref(db, "display-part");
     onValue(displayPartRef, (snapshot) => {
-      let data = Object.entries(snapshot.val()).map(([name, { price }]) => ({
-        name,
-        price: price.toString(),
-      }));
+      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+        ([name, { price }]) => ({
+          name,
+          price: price.toString(),
+        })
+      );
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setPartPrices(data);
     });
@@ -49,10 +51,6 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
     setChangedRow("price");
     setIndexChanged(index);
     onPropChange(true);
-    // set(
-    //   ref(db, `display-repair/${newPrices[index].name}/price`),
-    //   event.target.value
-    // );
   };
 
   const handleRepairSecondPriceChange = (event, index) => {
@@ -74,6 +72,7 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
   };
 
   const changeRequest = () => {
+    if (!indexChanged) return;
     switch (changedRow) {
       case "price":
         const newPrices = [...repairPrices];

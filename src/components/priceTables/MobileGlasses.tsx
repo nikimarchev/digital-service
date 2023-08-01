@@ -14,19 +14,19 @@ import { db } from "../../firebase";
 const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
   const isAdminLogged = useContext(AdminInfo);
   const [repairPrices, setRepairPrices] = useState<any>([]);
-  const [changedRow, setChangedRow] = useState<any>(null);
-  const [indexChanged, setIndexChanged] = useState<any>(null);
+  const [changedRow, setChangedRow] = useState<string | null>(null);
+  const [indexChanged, setIndexChanged] = useState<string | null>(null);
 
   useEffect(() => {
     const glassRepairRef = ref(db, "glass-repair");
     onValue(glassRepairRef, (snapshot) => {
-      let data = Object.entries(snapshot.val()).map(
-        ([name, { price, secondPrice }]) => ({
-          name,
-          price: price.toString(),
-          secondPrice: secondPrice.toString(),
-        })
-      );
+      let data = Object.entries<{ price: number; secondPrice: number }>(
+        snapshot.val()
+      ).map(([name, { price, secondPrice }]) => ({
+        name,
+        price: price.toString(),
+        secondPrice: secondPrice.toString(),
+      }));
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setRepairPrices(data);
     });
@@ -51,6 +51,7 @@ const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
   };
 
   const changeRequest = () => {
+    if (!indexChanged) return;
     switch (changedRow) {
       case "price":
         const newPrices = [...repairPrices];
