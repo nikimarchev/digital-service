@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,19 +16,19 @@ import { auth } from "../firebase";
 
 const NavBar = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState<any>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const isAdminLogged = useContext(AdminInfo);
   const setIsAdminLogged = useContext(AdminInfoDispatch);
 
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleNavigate = (root) => {
+  const handleNavigate = (root: string) => {
     setAnchorEl(null);
     navigate(root);
   };

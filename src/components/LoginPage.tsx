@@ -3,7 +3,7 @@ import "./styles.css";
 import { AdminInfoDispatch } from "../App";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Button, TextField } from "@mui/material";
-import NavBar from "./NavBar.tsx";
+import NavBar from "./NavBar";
 import { auth } from "../firebase.js";
 import { useNavigate } from "react-router-dom";
 

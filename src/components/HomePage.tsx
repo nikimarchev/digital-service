@@ -1,8 +1,7 @@
-import React from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar.tsx";
+import NavBar from "./NavBar";
 
 const HomePage = () => {
   const navigate = useNavigate();

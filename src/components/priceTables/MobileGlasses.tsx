@@ -11,11 +11,27 @@ import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
-const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
+interface GlassRepair {
+  name: string;
+  price: string;
+  secondPrice: string;
+}
+
+interface Props {
+  type: string;
+  onPropChange: (value: boolean) => void;
+  buttonClicked: boolean;
+}
+
+const MobileGlasses: React.FC<Props> = ({
+  type,
+  onPropChange,
+  buttonClicked,
+}) => {
   const isAdminLogged = useContext(AdminInfo);
-  const [repairPrices, setRepairPrices] = useState<any>([]);
+  const [repairPrices, setRepairPrices] = useState<GlassRepair[]>([]);
   const [changedRow, setChangedRow] = useState<string | null>(null);
-  const [indexChanged, setIndexChanged] = useState<string | null>(null);
+  const [indexChanged, setIndexChanged] = useState<number | null>(null);
 
   useEffect(() => {
     const glassRepairRef = ref(db, "glass-repair");
@@ -32,7 +48,10 @@ const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
     });
   }, []);
 
-  const handlePriceChange = (event, index) => {
+  const handlePriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...repairPrices];
     newPrices[index].price = event.target.value;
     setRepairPrices(newPrices);
@@ -41,7 +60,10 @@ const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
     onPropChange(true);
   };
 
-  const handleSecondPriceChange = (event, index) => {
+  const handleSecondPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...repairPrices];
     newPrices[index].secondPrice = event.target.value;
     setRepairPrices(newPrices);
@@ -51,7 +73,7 @@ const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
   };
 
   const changeRequest = () => {
-    if (!indexChanged) return;
+    if (indexChanged === null) return;
     switch (changedRow) {
       case "price":
         const newPrices = [...repairPrices];

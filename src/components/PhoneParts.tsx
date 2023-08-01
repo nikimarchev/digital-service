@@ -5,10 +5,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MobileBattery from "./priceTables/MobileBattery.tsx";
-import MobileDisplay from "./priceTables/MobileDisplay.tsx";
-import ContactDialog from "./ContactDialog.tsx";
-import NavBar from "./NavBar.tsx";
+import MobileBattery from "./priceTables/MobileBattery";
+import MobileDisplay from "./priceTables/MobileDisplay";
+import ContactDialog from "./ContactDialog";
+import NavBar from "./NavBar";
 import { Button } from "@mui/material";
 
 const PhoneParts = () => {
@@ -50,8 +50,10 @@ const PhoneParts = () => {
           </AccordionSummary>
           <AccordionDetails>
             <MobileBattery
-              type="parts"
-              onPropChange={(propValue) => setShowBatteryButton(propValue)}
+              type="part"
+              onPropChange={(propValue: boolean) =>
+                setShowBatteryButton(propValue)
+              }
               buttonClicked={batteryButtonClicked}
             />
           </AccordionDetails>
@@ -85,8 +87,10 @@ const PhoneParts = () => {
           </AccordionSummary>
           <AccordionDetails>
             <MobileDisplay
-              type="parts"
-              onPropChange={(propValue) => setShowDisplayButton(propValue)}
+              type="part"
+              onPropChange={(propValue: boolean) =>
+                setShowDisplayButton(propValue)
+              }
               buttonClicked={displayButtonClicked}
             />
           </AccordionDetails>

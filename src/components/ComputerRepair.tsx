@@ -5,8 +5,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ContactDialog from "./ContactDialog.tsx";
-import NavBar from "./NavBar.tsx";
+import ContactDialog from "./ContactDialog";
+import NavBar from "./NavBar";
 
 const styles = {
   detailsText: {

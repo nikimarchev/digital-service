@@ -1,11 +1,10 @@
 import "./styles.css";
-import React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ContactDialog from "./ContactDialog.tsx";
-import NavBar from "./NavBar.tsx";
+import ContactDialog from "./ContactDialog";
+import NavBar from "./NavBar";
 
 const styles = {
   detailsText: {

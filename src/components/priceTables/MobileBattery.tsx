@@ -11,12 +11,27 @@ import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
-const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
+interface MobileBatteryProps {
+  type: "repair" | "part";
+  onPropChange: (value: boolean) => void;
+  buttonClicked: boolean;
+}
+
+interface PriceData {
+  name: string;
+  price: string;
+}
+
+const MobileBattery: React.FC<MobileBatteryProps> = ({
+  type,
+  onPropChange,
+  buttonClicked,
+}) => {
   const isAdminLogged = useContext(AdminInfo);
-  const [repairPrices, setRepairPrices] = useState<any>([]);
-  const [partPrices, setPartPrices] = useState<any>([]);
+  const [repairPrices, setRepairPrices] = useState<PriceData[]>([]);
+  const [partPrices, setPartPrices] = useState<PriceData[]>([]);
   const [changedRow, setChangedRow] = useState<string | null>(null);
-  const [indexChanged, setIndexChanged] = useState<string | null>(null);
+  const [indexChanged, setIndexChanged] = useState<number | null>(null);
 
   useEffect(() => {
     const batteryRepairRef = ref(db, "battery-repair");
@@ -43,7 +58,10 @@ const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
     });
   }, []);
 
-  const handleRepairPriceChange = (event, index) => {
+  const handleRepairPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...repairPrices];
     newPrices[index].price = event.target.value;
     setRepairPrices(newPrices);
@@ -52,7 +70,10 @@ const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
     onPropChange(true);
   };
 
-  const handlePartPriceChange = (event, index) => {
+  const handlePartPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...partPrices];
     newPrices[index].price = event.target.value;
     setPartPrices(newPrices);
@@ -62,7 +83,7 @@ const MobileBattery = ({ type, onPropChange, buttonClicked }) => {
   };
 
   const changeRequest = () => {
-    if (!indexChanged) return;
+    if (indexChanged === null) return;
     switch (changedRow) {
       case "price":
         const newPrices = [...repairPrices];

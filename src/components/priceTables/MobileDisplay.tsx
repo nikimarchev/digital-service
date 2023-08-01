@@ -11,12 +11,35 @@ import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
-const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
+interface RepairPrice {
+  name: string;
+  price: string;
+  secondPrice: string;
+}
+
+interface PartPrice {
+  name: string;
+  price: string;
+}
+
+interface MobileDisplayProps {
+  type: "repair" | "part";
+  onPropChange: (value: boolean) => void;
+  buttonClicked: boolean;
+}
+
+const MobileDisplay: React.FC<MobileDisplayProps> = ({
+  type,
+  onPropChange,
+  buttonClicked,
+}) => {
   const isAdminLogged = useContext(AdminInfo);
-  const [repairPrices, setRepairPrices] = useState<any>([]);
-  const [partPrices, setPartPrices] = useState<any>([]);
-  const [changedRow, setChangedRow] = useState<string | null>(null);
-  const [indexChanged, setIndexChanged] = useState<string | null>(null);
+  const [repairPrices, setRepairPrices] = useState<RepairPrice[]>([]);
+  const [partPrices, setPartPrices] = useState<PartPrice[]>([]);
+  const [changedRow, setChangedRow] = useState<
+    "price" | "secondPrice" | "part-price" | null
+  >(null);
+  const [indexChanged, setIndexChanged] = useState<number | null>(null);
 
   useEffect(() => {
     const displayRepairRef = ref(db, "display-repair");
@@ -44,7 +67,10 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
     });
   }, []);
 
-  const handleRepairPriceChange = (event, index) => {
+  const handleRepairPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...repairPrices];
     newPrices[index].price = event.target.value;
     setRepairPrices(newPrices);
@@ -53,7 +79,10 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
     onPropChange(true);
   };
 
-  const handleRepairSecondPriceChange = (event, index) => {
+  const handleRepairSecondPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...repairPrices];
     newPrices[index].secondPrice = event.target.value;
     setRepairPrices(newPrices);
@@ -62,7 +91,10 @@ const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
     onPropChange(true);
   };
 
-  const handlePartPriceChange = (event, index) => {
+  const handlePartPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const newPrices = [...partPrices];
     newPrices[index].price = event.target.value;
     setPartPrices(newPrices);
