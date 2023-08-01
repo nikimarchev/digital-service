@@ -10,9 +10,18 @@ import MobileDisplay from "./priceTables/MobileDisplay.tsx";
 import MobileGlasses from "./priceTables/MobileGlasses.tsx";
 import ContactDialog from "./ContactDialog.tsx";
 import NavBar from "./NavBar.tsx";
+import { Button } from "@mui/material";
 
 const PhoneRepair = () => {
   const [expanded, setExpanded] = useState<string>("");
+  const [showBatteryButton, setShowBatteryButton] = useState<boolean>(false);
+  const [showDisplayButton, setShowDisplayButton] = useState<boolean>(false);
+  const [showGlassButton, setShowGlassButton] = useState<boolean>(false);
+  const [batteryButtonClicked, setBatteryButtonClicked] =
+    useState<boolean>(false);
+  const [displayButtonClicked, setDisplayButtonClicked] =
+    useState<boolean>(false);
+  const [glassButtonClicked, setGlassButtonClicked] = useState<boolean>(false);
 
   return (
     <div className="detailsPage">
@@ -34,9 +43,22 @@ const PhoneRepair = () => {
             <Typography variant="h6" sx={{ textAlign: "left" }}>
               СМЯНА НА БАТЕРИИ
             </Typography>
+            <div style={{ flexGrow: 1 }} />
+            {showBatteryButton && (
+              <Button
+                variant="outlined"
+                onClick={() => setBatteryButtonClicked(true)}
+              >
+                Запази
+              </Button>
+            )}
           </AccordionSummary>
           <AccordionDetails>
-            <MobileBattery type="repair" />
+            <MobileBattery
+              type="repair"
+              onPropChange={(propValue) => setShowBatteryButton(propValue)}
+              buttonClicked={batteryButtonClicked}
+            />
           </AccordionDetails>
         </Accordion>
 
@@ -58,9 +80,22 @@ const PhoneRepair = () => {
             <Typography variant="h6" sx={{ textAlign: "left" }}>
               СМЯНА НА ДИСПЛЕИ
             </Typography>
+            <div style={{ flexGrow: 1 }} />
+            {showDisplayButton && (
+              <Button
+                variant="outlined"
+                onClick={() => setDisplayButtonClicked(true)}
+              >
+                Запази
+              </Button>
+            )}
           </AccordionSummary>
           <AccordionDetails>
-            <MobileDisplay type="repair" />
+            <MobileDisplay
+              type="repair"
+              onPropChange={(propValue) => setShowDisplayButton(propValue)}
+              buttonClicked={displayButtonClicked}
+            />
           </AccordionDetails>
         </Accordion>
 
@@ -82,9 +117,22 @@ const PhoneRepair = () => {
             <Typography variant="h6" sx={{ textAlign: "left" }}>
               СМЯНА НА ПРЕДНИ И ЗАДНИ СТЪКЛА
             </Typography>
+            <div style={{ flexGrow: 1 }} />
+            {showGlassButton && (
+              <Button
+                variant="outlined"
+                onClick={() => setGlassButtonClicked(true)}
+              >
+                Запази
+              </Button>
+            )}
           </AccordionSummary>
           <AccordionDetails>
-            <MobileGlasses type="repair" />
+            <MobileGlasses
+              type="repair"
+              onPropChange={(propValue) => setShowGlassButton(propValue)}
+              buttonClicked={glassButtonClicked}
+            />
           </AccordionDetails>
         </Accordion>
         <ContactDialog buttonText="КОНТАКТ ЗА ЗАПАЗВАНЕ НА ЧАС" />

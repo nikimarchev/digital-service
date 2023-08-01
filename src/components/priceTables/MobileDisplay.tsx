@@ -11,10 +11,12 @@ import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
-const MobileDisplay = ({ type }) => {
+const MobileDisplay = ({ type, onPropChange, buttonClicked }) => {
   const isAdminLogged = useContext(AdminInfo);
   const [repairPrices, setRepairPrices] = useState<any>([]);
   const [partPrices, setPartPrices] = useState<any>([]);
+  const [changedRow, setChangedRow] = useState<any>(null);
+  const [indexChanged, setIndexChanged] = useState<any>(null);
 
   useEffect(() => {
     const displayRepairRef = ref(db, "display-repair");
@@ -44,31 +46,70 @@ const MobileDisplay = ({ type }) => {
     const newPrices = [...repairPrices];
     newPrices[index].price = event.target.value;
     setRepairPrices(newPrices);
-    set(
-      ref(db, `display-repair/${newPrices[index].name}/price`),
-      event.target.value
-    );
+    setChangedRow("price");
+    setIndexChanged(index);
+    onPropChange(true);
+    // set(
+    //   ref(db, `display-repair/${newPrices[index].name}/price`),
+    //   event.target.value
+    // );
   };
 
   const handleRepairSecondPriceChange = (event, index) => {
     const newPrices = [...repairPrices];
     newPrices[index].secondPrice = event.target.value;
     setRepairPrices(newPrices);
-    set(
-      ref(db, `display-repair/${newPrices[index].name}/secondPrice`),
-      event.target.value
-    );
+    setChangedRow("secondPrice");
+    setIndexChanged(index);
+    onPropChange(true);
   };
 
   const handlePartPriceChange = (event, index) => {
     const newPrices = [...partPrices];
     newPrices[index].price = event.target.value;
     setPartPrices(newPrices);
-    set(
-      ref(db, `display-part/${newPrices[index].name}/price`),
-      event.target.value
-    );
+    setChangedRow("part-price");
+    setIndexChanged(index);
+    onPropChange(true);
   };
+
+  const changeRequest = () => {
+    switch (changedRow) {
+      case "price":
+        const newPrices = [...repairPrices];
+        set(
+          ref(db, `display-repair/${newPrices[indexChanged].name}/price`),
+          newPrices[indexChanged].price
+        );
+        break;
+      case "secondPrice":
+        const newSecondPrices = [...repairPrices];
+        set(
+          ref(
+            db,
+            `display-repair/${newSecondPrices[indexChanged].name}/secondPrice`
+          ),
+          newSecondPrices[indexChanged].secondPrice
+        );
+        break;
+      case "part-price":
+        const newPartPrices = [...partPrices];
+        set(
+          ref(db, `display-part/${newPartPrices[indexChanged].name}/price`),
+          newPartPrices[indexChanged].price
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (buttonClicked) {
+      changeRequest();
+      onPropChange(false);
+    }
+  }, [buttonClicked]);
 
   return (
     <div className="accordionBody">

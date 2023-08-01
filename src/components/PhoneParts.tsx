@@ -9,9 +9,16 @@ import MobileBattery from "./priceTables/MobileBattery.tsx";
 import MobileDisplay from "./priceTables/MobileDisplay.tsx";
 import ContactDialog from "./ContactDialog.tsx";
 import NavBar from "./NavBar.tsx";
+import { Button } from "@mui/material";
 
 const PhoneParts = () => {
   const [expanded, setExpanded] = useState<string>("");
+  const [showBatteryButton, setShowBatteryButton] = useState<boolean>(false);
+  const [showDisplayButton, setShowDisplayButton] = useState<boolean>(false);
+  const [batteryButtonClicked, setBatteryButtonClicked] =
+    useState<boolean>(false);
+  const [displayButtonClicked, setDisplayButtonClicked] =
+    useState<boolean>(false);
 
   return (
     <div className="detailsPage">
@@ -31,9 +38,22 @@ const PhoneParts = () => {
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} id="panel1a-header">
             <Typography variant="h6">БАТЕРИИ</Typography>
+            <div style={{ flexGrow: 1 }} />
+            {showBatteryButton && (
+              <Button
+                variant="outlined"
+                onClick={() => setBatteryButtonClicked(true)}
+              >
+                Запази
+              </Button>
+            )}
           </AccordionSummary>
           <AccordionDetails>
-            <MobileBattery type="parts" />
+            <MobileBattery
+              type="parts"
+              onPropChange={(propValue) => setShowBatteryButton(propValue)}
+              buttonClicked={batteryButtonClicked}
+            />
           </AccordionDetails>
         </Accordion>
 
@@ -53,9 +73,22 @@ const PhoneParts = () => {
             id="panel2a-header"
           >
             <Typography variant="h6">ДИСПЛЕИ</Typography>
+            <div style={{ flexGrow: 1 }} />
+            {showDisplayButton && (
+              <Button
+                variant="outlined"
+                onClick={() => setDisplayButtonClicked(true)}
+              >
+                Запази
+              </Button>
+            )}
           </AccordionSummary>
           <AccordionDetails>
-            <MobileDisplay type="parts" />
+            <MobileDisplay
+              type="parts"
+              onPropChange={(propValue) => setShowDisplayButton(propValue)}
+              buttonClicked={displayButtonClicked}
+            />
           </AccordionDetails>
         </Accordion>
         <ContactDialog buttonText="КОНТАКТ ЗА ПОРЪЧКИ" />

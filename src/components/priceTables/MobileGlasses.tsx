@@ -11,9 +11,11 @@ import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
-const MobileGlasses = ({ type }) => {
+const MobileGlasses = ({ type, onPropChange, buttonClicked }) => {
   const isAdminLogged = useContext(AdminInfo);
   const [repairPrices, setRepairPrices] = useState<any>([]);
+  const [changedRow, setChangedRow] = useState<any>(null);
+  const [indexChanged, setIndexChanged] = useState<any>(null);
 
   useEffect(() => {
     const glassRepairRef = ref(db, "glass-repair");
@@ -34,21 +36,50 @@ const MobileGlasses = ({ type }) => {
     const newPrices = [...repairPrices];
     newPrices[index].price = event.target.value;
     setRepairPrices(newPrices);
-    set(
-      ref(db, `glass-repair/${newPrices[index].name}/price`),
-      event.target.value
-    );
+    setChangedRow("price");
+    setIndexChanged(index);
+    onPropChange(true);
   };
 
   const handleSecondPriceChange = (event, index) => {
     const newPrices = [...repairPrices];
     newPrices[index].secondPrice = event.target.value;
     setRepairPrices(newPrices);
-    set(
-      ref(db, `glass-repair/${newPrices[index].name}/secondPrice`),
-      event.target.value
-    );
+    setChangedRow("secondPrice");
+    setIndexChanged(index);
+    onPropChange(true);
   };
+
+  const changeRequest = () => {
+    switch (changedRow) {
+      case "price":
+        const newPrices = [...repairPrices];
+        set(
+          ref(db, `glass-repair/${newPrices[indexChanged].name}/price`),
+          newPrices[indexChanged].price
+        );
+        break;
+      case "secondPrice":
+        const newSecondPrices = [...repairPrices];
+        set(
+          ref(
+            db,
+            `glass-repair/${newSecondPrices[indexChanged].name}/secondPrice`
+          ),
+          newSecondPrices[indexChanged].secondPrice
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (buttonClicked) {
+      changeRequest();
+      onPropChange(false);
+    }
+  }, [buttonClicked]);
 
   return (
     <div className="accordionBody">
