@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
+import { customSortTwoPrices } from "../../utils";
 
 interface GlassRepair {
   name: string;
@@ -36,15 +37,15 @@ const MobileGlasses: React.FC<Props> = ({
   useEffect(() => {
     const glassRepairRef = ref(db, "glass-repair");
     onValue(glassRepairRef, (snapshot) => {
-      let data = Object.entries<{ price: number; secondPrice: number }>(
+      const data = Object.entries<{ price: number; secondPrice: number }>(
         snapshot.val()
       ).map(([name, { price, secondPrice }]) => ({
         name,
         price: price.toString(),
         secondPrice: secondPrice.toString(),
       }));
-      data = data.sort((a, b) => b.name.localeCompare(a.name));
-      setRepairPrices(data);
+      const newData = customSortTwoPrices(data);
+      setRepairPrices(newData);
     });
   }, []);
 

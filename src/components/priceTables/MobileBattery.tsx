@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
+import { customSort } from "../../utils";
 
 interface MobileBatteryProps {
   type: "repair" | "part";
@@ -36,25 +37,25 @@ const MobileBattery: React.FC<MobileBatteryProps> = ({
   useEffect(() => {
     const batteryRepairRef = ref(db, "battery-repair");
     onValue(batteryRepairRef, (snapshot) => {
-      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+      const data = Object.entries<{ price: number }>(snapshot.val()).map(
         ([name, { price }]) => ({
           name,
           price: price.toString(),
         })
       );
-      data = data.sort((a, b) => b.name.localeCompare(a.name));
-      setRepairPrices(data);
+      const newData = customSort(data);
+      setRepairPrices(newData);
     });
     const batteryPartRef = ref(db, "battery-part");
     onValue(batteryPartRef, (snapshot) => {
-      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+      const data = Object.entries<{ price: number }>(snapshot.val()).map(
         ([name, { price }]) => ({
           name,
           price: price.toString(),
         })
       );
-      data = data.sort((a, b) => b.name.localeCompare(a.name));
-      setPartPrices(data);
+      const newData = customSort(data);
+      setPartPrices(newData);
     });
   }, []);
 

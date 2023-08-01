@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
 import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
+import { customSortTwoPrices, customSort } from "../../utils";
 
 interface RepairPrice {
   name: string;
@@ -44,26 +45,26 @@ const MobileDisplay: React.FC<MobileDisplayProps> = ({
   useEffect(() => {
     const displayRepairRef = ref(db, "display-repair");
     onValue(displayRepairRef, (snapshot) => {
-      let data = Object.entries<{ price: number; secondPrice: number }>(
+      const data = Object.entries<{ price: number; secondPrice: number }>(
         snapshot.val()
       ).map(([name, { price, secondPrice }]) => ({
         name,
         price: price.toString(),
         secondPrice: secondPrice.toString(),
       }));
-      data = data.sort((a, b) => b.name.localeCompare(a.name));
-      setRepairPrices(data);
+      const newData = customSortTwoPrices(data);
+      setRepairPrices(newData);
     });
     const displayPartRef = ref(db, "display-part");
     onValue(displayPartRef, (snapshot) => {
-      let data = Object.entries<{ price: number }>(snapshot.val()).map(
+      const data = Object.entries<{ price: number }>(snapshot.val()).map(
         ([name, { price }]) => ({
           name,
           price: price.toString(),
         })
       );
-      data = data.sort((a, b) => b.name.localeCompare(a.name));
-      setPartPrices(data);
+      const newData = customSort(data);
+      setPartPrices(newData);
     });
   }, []);
 
