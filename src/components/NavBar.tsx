@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -42,6 +42,16 @@ const NavBar = () => {
         console.log(error.message);
       });
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsAdminLogged(true);
+      } else {
+        setIsAdminLogged(false);
+      }
+    });
+  }, []);
 
   return (
     <>

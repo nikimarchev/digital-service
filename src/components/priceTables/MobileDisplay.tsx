@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
 const MobileDisplay = ({ type }) => {
@@ -29,7 +29,7 @@ const MobileDisplay = ({ type }) => {
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setRepairPrices(data);
     });
-    const displayPartRef = ref(db, "display-repair");
+    const displayPartRef = ref(db, "display-part");
     onValue(displayPartRef, (snapshot) => {
       let data = Object.entries(snapshot.val()).map(([name, { price }]) => ({
         name,
@@ -39,6 +39,36 @@ const MobileDisplay = ({ type }) => {
       setPartPrices(data);
     });
   }, []);
+
+  const handleRepairPriceChange = (event, index) => {
+    const newPrices = [...repairPrices];
+    newPrices[index].price = event.target.value;
+    setRepairPrices(newPrices);
+    set(
+      ref(db, `display-repair/${newPrices[index].name}/price`),
+      event.target.value
+    );
+  };
+
+  const handleRepairSecondPriceChange = (event, index) => {
+    const newPrices = [...repairPrices];
+    newPrices[index].secondPrice = event.target.value;
+    setRepairPrices(newPrices);
+    set(
+      ref(db, `display-repair/${newPrices[index].name}/secondPrice`),
+      event.target.value
+    );
+  };
+
+  const handlePartPriceChange = (event, index) => {
+    const newPrices = [...partPrices];
+    newPrices[index].price = event.target.value;
+    setPartPrices(newPrices);
+    set(
+      ref(db, `display-part/${newPrices[index].name}/price`),
+      event.target.value
+    );
+  };
 
   return (
     <div className="accordionBody">
@@ -55,7 +85,7 @@ const MobileDisplay = ({ type }) => {
           </TableHead>
           <TableBody>
             {type === "repair"
-              ? repairPrices.map((row) => (
+              ? repairPrices.map((row, index) => (
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -63,7 +93,10 @@ const MobileDisplay = ({ type }) => {
                     <TableCell align="center">
                       {isAdminLogged ? (
                         <input
-                          defaultValue={row.price}
+                          value={row.price}
+                          onChange={(event) =>
+                            handleRepairPriceChange(event, index)
+                          }
                           style={{ width: "50px" }}
                         />
                       ) : (
@@ -74,7 +107,10 @@ const MobileDisplay = ({ type }) => {
                     <TableCell align="center">
                       {isAdminLogged ? (
                         <input
-                          defaultValue={row.secondPrice}
+                          value={row.secondPrice}
+                          onChange={(event) =>
+                            handleRepairSecondPriceChange(event, index)
+                          }
                           style={{ width: "50px" }}
                         />
                       ) : (
@@ -84,7 +120,7 @@ const MobileDisplay = ({ type }) => {
                     </TableCell>
                   </TableRow>
                 ))
-              : partPrices.map((row) => (
+              : partPrices.map((row, index) => (
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -92,7 +128,10 @@ const MobileDisplay = ({ type }) => {
                     <TableCell align="center">
                       {isAdminLogged ? (
                         <input
-                          defaultValue={row.price}
+                          value={row.price}
+                          onChange={(event) =>
+                            handlePartPriceChange(event, index)
+                          }
                           style={{ width: "50px" }}
                         />
                       ) : (

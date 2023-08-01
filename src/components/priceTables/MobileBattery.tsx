@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
 const MobileBattery = ({ type }) => {
@@ -26,7 +26,7 @@ const MobileBattery = ({ type }) => {
       data = data.sort((a, b) => b.name.localeCompare(a.name));
       setRepairPrices(data);
     });
-    const batteryPartRef = ref(db, "battery-repair");
+    const batteryPartRef = ref(db, "battery-part");
     onValue(batteryPartRef, (snapshot) => {
       let data = Object.entries(snapshot.val()).map(([name, { price }]) => ({
         name,
@@ -36,6 +36,26 @@ const MobileBattery = ({ type }) => {
       setPartPrices(data);
     });
   }, []);
+
+  const handleRepairPriceChange = (event, index) => {
+    const newPrices = [...repairPrices];
+    newPrices[index].price = event.target.value;
+    setRepairPrices(newPrices);
+    set(
+      ref(db, `battery-repair/${newPrices[index].name}/price`),
+      event.target.value
+    );
+  };
+
+  const handlePartPriceChange = (event, index) => {
+    const newPrices = [...partPrices];
+    newPrices[index].price = event.target.value;
+    setPartPrices(newPrices);
+    set(
+      ref(db, `battery-part/${newPrices[index].name}/price`),
+      event.target.value
+    );
+  };
 
   return (
     <div className="accordionBody">
@@ -49,7 +69,7 @@ const MobileBattery = ({ type }) => {
           </TableHead>
           <TableBody>
             {type === "repair"
-              ? repairPrices.map((row) => (
+              ? repairPrices.map((row, index) => (
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -57,7 +77,10 @@ const MobileBattery = ({ type }) => {
                     <TableCell align="center">
                       {isAdminLogged ? (
                         <input
-                          defaultValue={row.price}
+                          value={row.price}
+                          onChange={(event) =>
+                            handleRepairPriceChange(event, index)
+                          }
                           style={{ width: "50px" }}
                         />
                       ) : (
@@ -67,7 +90,7 @@ const MobileBattery = ({ type }) => {
                     </TableCell>
                   </TableRow>
                 ))
-              : partPrices.map((row) => (
+              : partPrices.map((row, index) => (
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.name}
@@ -75,7 +98,10 @@ const MobileBattery = ({ type }) => {
                     <TableCell align="center">
                       {isAdminLogged ? (
                         <input
-                          defaultValue={row.price}
+                          value={row.price}
+                          onChange={(event) =>
+                            handlePartPriceChange(event, index)
+                          }
                           style={{ width: "50px" }}
                         />
                       ) : (

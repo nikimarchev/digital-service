@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { AdminInfo } from "../../App";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 
 const MobileGlasses = ({ type }) => {
@@ -30,6 +30,26 @@ const MobileGlasses = ({ type }) => {
     });
   }, []);
 
+  const handlePriceChange = (event, index) => {
+    const newPrices = [...repairPrices];
+    newPrices[index].price = event.target.value;
+    setRepairPrices(newPrices);
+    set(
+      ref(db, `glass-repair/${newPrices[index].name}/price`),
+      event.target.value
+    );
+  };
+
+  const handleSecondPriceChange = (event, index) => {
+    const newPrices = [...repairPrices];
+    newPrices[index].secondPrice = event.target.value;
+    setRepairPrices(newPrices);
+    set(
+      ref(db, `glass-repair/${newPrices[index].name}/secondPrice`),
+      event.target.value
+    );
+  };
+
   return (
     <div className="accordionBody">
       <TableContainer component={Paper}>
@@ -43,7 +63,7 @@ const MobileGlasses = ({ type }) => {
           </TableHead>
           <TableBody>
             {type === "repair" &&
-              repairPrices.map((row) => (
+              repairPrices.map((row, index) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row">
                     {row.name}
@@ -51,7 +71,8 @@ const MobileGlasses = ({ type }) => {
                   <TableCell align="center">
                     {isAdminLogged ? (
                       <input
-                        defaultValue={row.price}
+                        value={row.price}
+                        onChange={(event) => handlePriceChange(event, index)}
                         style={{ width: "50px" }}
                       />
                     ) : (
@@ -62,7 +83,10 @@ const MobileGlasses = ({ type }) => {
                   <TableCell align="center">
                     {isAdminLogged ? (
                       <input
-                        defaultValue={row.secondPrice}
+                        value={row.secondPrice}
+                        onChange={(event) =>
+                          handleSecondPriceChange(event, index)
+                        }
                         style={{ width: "50px" }}
                       />
                     ) : (
